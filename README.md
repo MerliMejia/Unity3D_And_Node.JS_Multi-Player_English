@@ -5,7 +5,7 @@ This repository will contain all the code corresponding to the video tutorials o
 
 # Info
 
-You may have noticed that this repository includes the ** node_modules ** folder, well, I do this because I want people with not much knowledge in node.js being able to use these examples more easily ;)
+You may have noticed that this repository includes the **node_modules** folder, well, I do this because I want people with not much knowledge in node.js being able to use these examples more easily ;)
 
 You can contact me or ask me any questions to this email: **merlimejia2@gmail.com**
 
