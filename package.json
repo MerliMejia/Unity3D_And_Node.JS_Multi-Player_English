@@ -1,0 +1,21 @@
+{
+  "name": "game_english",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "tsc": "tsc",
+    "dev": "ts-node-dev --respawn --transpileOnly ./src/Server.ts",
+    "prod": "tsc && node ./build/Server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ts-node-dev": "^1.0.0-pre.44",
+    "typescript": "^3.7.4"
+  },
+  "devDependencies": {
+    "@types/node": "^13.1.1"
+  }
+}
