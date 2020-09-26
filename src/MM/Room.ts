@@ -59,7 +59,7 @@ class Habitacion {
 /**
  * Esta clase sera la encargada de comunicar los players en el metodo 1VS1
  */
-export class UnoVsUo extends Habitacion {
+export class OneVsOne extends Habitacion {
   constructor(player1: IPlayer, player2: IPlayer) {
     super({ player1: player1, player2: player2 });
   }
