@@ -7,10 +7,10 @@ export default class Timer {
   constructor(execute: Function, interval: number);
   constructor(execute?: Function, interval?: number) {
     if (interval !== undefined) this.interval = interval;
-    if (execute !== undefined) this.empezar(execute);
+    if (execute !== undefined) this.start(execute);
   }
 
-  private empezar(execute: Function) {
+  private start(execute: Function) {
     this.si = setInterval(() => {
       execute();
     }, 1000 / this.interval);

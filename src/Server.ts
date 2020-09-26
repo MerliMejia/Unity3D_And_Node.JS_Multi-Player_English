@@ -1,6 +1,5 @@
 /**
  * @author Merli Mejia - Email: merlimejia2@gmail.com
- * @description server TCP el cual utiliza sockets
  */
 
 import * as net from "net";
@@ -10,65 +9,65 @@ import {OneVsOne} from "./MM/Room"
 
 let timer: Timer = new Timer();
 
-//Interfaz de players
+//Players interface
 export interface IPlayer {
   id: string;
   conexion: net.Socket;
 }
 
-//Lista de todos los players buscando partida
+//List of all the players who are searching a match
 let searchMatch: Map<String, IPlayer> = new Map<String, IPlayer>();
-//Objeto con los diferentes commands
+//Object with all commands(I'll change it for a enum later)
 let commands = {
   SEARCH_MATCH: "SEARCH_MATCH",
 };
 
-//Lista de todas las habitaciones 1VS1
+//List of all One Vs One rooms
 let oneVsOneRooms: Map<string, OneVsOne> = new Map<string, OneVsOne>();
 
 /**
- * @description Creamos un server TCP
- * @param socket Referencia al cliente connected a nuestro server
+ * @description Create the TCP server
+ * @param socket client refference
  */
 let server = net.createServer((socket) => {
   let id = uuid()
   let connected = false;
 
-  //Mandamos mensaje de "connected" al cliente despues de 5 segundos
+  //Send a "connected" message after one second to the client
   timer.executeAfter(1).then(() => {
     console.log(`${socket.remoteAddress} has connected`);
     connected = true;
     socket.write(Buffer.from("connected", "utf-8"));
     timer.executeAfter(1).then(() => {
-      socket.write(Buffer.from(`id: ${id}`, "utf-8")); //Enviamos el id al cliente
+      socket.write(Buffer.from(`id: ${id}`, "utf-8")); //Sent an auto generated id to the client
     });
   });
 
   /**
-   * Recibimos informacion del cliente
+   * Receive data from the client
    */
   socket.on("data", (data) => {
     if (data.toString() == commands.SEARCH_MATCH) {
       console.log(`${id} is searching for a match`);
-      searchMatch.set(id, { id: id, conexion: socket }); //Agregamos el jugador a la lista de espera
+      searchMatch.set(id, { id: id, conexion: socket }); //Add the player to the waiting list.
     }
   });
 
-  //Ejecuta algo cuando el cliente se desconecta
+  //The client has desconnected
   socket.on("close", () => {
     console.log("DESCONNECTED");
   });
 });
 
-const PUERTO = 8080; //Puerto en el cual correra el server
+const PORT = 8080; //Port in which the server is listening.
 
-//Pone nuestro server a escuchar peticiones en un puerto especifico
-server.listen(PUERTO, () => {
-  console.log("RUNNING ON PORT: " + PUERTO);
+//Make the server listen on the selected port
+server.listen(PORT, () => {
+  console.log("RUNNING ON PORT: " + PORT);
   console.log("Waiting for players to search a match");
 
   let searchingTimer: Timer = new Timer(() => {
-    //se ejecuta 60 veces cada segundo
+    //Get executed 60 times every second
     if (searchMatch.size >= 2) {
       let players: Array<IPlayer> = [];
       searchMatch.forEach((j) => {

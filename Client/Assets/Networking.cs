@@ -2,45 +2,43 @@
  * Autor: Merli Mejia
  * Email: merlimejia2@gmail.com
  * <summary>
- * Esta clase sera la encargada de manejar todo lo que tiene que ver con el 
- * Networking de nuestro juego
+ * This class will handle all the connection between the client and the server
  * </summary>
  */
 
 using UnityEngine;//Unity
-using System.Net.Sockets;//Libreria que nos permite usar Sockets
-using System;//Lo necesitamos para usar las interfaces Actions
-using System.Text;//Lo necesitamos para decodificar los bytes provenientes del servidor
-using System.Threading.Tasks;
+using System.Net.Sockets;//Socket communication library
+using System.Text;//For encoding and decoding data
+using System;//For using the Action interface
 
 public class Networking : MonoBehaviour
 {
-    TcpClient client = new TcpClient();//Instancia de nuestro client TCP
-    NetworkStream stream;//Lo usamos para leer y escribir en el servidor
+    TcpClient client = new TcpClient();//TCP client instance
+    NetworkStream stream;//We use it for writing and reading from the server.
 
-    const string IP = "192.168.0.6";//Direccion IP del servidor(al principio sera la ip de tu pc)
-    const int PORT = 8080;//PORT en el cual esta running el servidor
-    const double memory = 5e+6;//Significa 5mbs en bytes
-    const int connexionLimitTime = 5000;//Tiempo limite de conexion en milisegundos
+    const string IP = "192.168.0.6";//Server IP
+    const int PORT = 8080;//Server listening port
+    const double memory = 5e+6;//this means 5mb in bytes
+    const int connexionLimitTime = 5000;//Connexion limit time in milliseconds
 
-    public byte[] data = new byte[(int)memory];//Donde almacenamos lo que viene del servidor
-    public bool running = false;//Para saber si el client esta running
+    public byte[] data = new byte[(int)memory];//Where we storage the data comming from the server
+    public bool running = false;//To know if the client loop is running
 
-    public string id = "";
-    public bool reading = false;
-    public bool writing = false;
-    public bool searchingMatch = false;
-    public bool connected = false;
+    public string id = ""; //unique client id
+    public bool reading = false;// to know if we're reading from the server
+    public bool writing = false;// to know if we're writing from the server
+    public bool searchingMatch = false;// to know if we're searching a match
+    public bool connected = false; // to know if we're connected to the server
 
     private void Start()
     {
-        //Intentamos connectnos al servidor
+        //We try to connect to the server
         connect((bool res) =>
         {
             if (res == true)
             {
                 connected = true;
-                stream = client.GetStream();//Obtenemos la instancia del stream de la conexion
+                stream = client.GetStream();
                 running = true;
             }
             else
@@ -52,8 +50,8 @@ public class Networking : MonoBehaviour
 
     /**
      * <summary>
-     * Este metodo hace algo dependiendo el command que le pasen
-     * <paramref name="command"/> command a ejecutar
+     * This function do something depending of the command
+     * <paramref name="command"/> command that will be executed
      * </summary>
      * 
      */
@@ -74,7 +72,7 @@ public class Networking : MonoBehaviour
 
     /**
      * <summary>
-     * Este metodo se ejecuta cada vez que se termina de leer algo proveniente del servidor
+     * This method is called every time we finish reading from the server
      * </summary>
      * 
      */
@@ -88,8 +86,8 @@ public class Networking : MonoBehaviour
 
     /**
      * <summary>
-     * Este metodo manda un message al servidor
-     * <paramref name="command"/> command a escribir
+     * This function write something to the server
+     * <paramref name="command"/> command to be written in the server
      * </summary>
      * 
      */
@@ -102,7 +100,7 @@ public class Networking : MonoBehaviour
 
     /**
      * <summary>
-     * Este metodo se ejecuta cada vez que se termina de escribir en el servidor
+     * This method is called every time we finish wrtting to the server
      * </summary>
      * 
      */
@@ -118,7 +116,7 @@ public class Networking : MonoBehaviour
 
         if (running == true)
         {
-            if (stream.DataAvailable)//Asi sabemos si el servidor ha enviado algo
+            if (stream.DataAvailable)// to know if something is comming from the server
             {
                 reading = true;
                 stream.BeginRead(data, 0, data.Length, new AsyncCallback(readingDone), stream);
@@ -129,8 +127,8 @@ public class Networking : MonoBehaviour
     /**
      * 
      * <summary>
-     * Este metodo intenta connectse al servidor durante un tiempo limite ya definido <see cref="connexionLimitTime"/>
-     * <paramref name="callback"/> se ejecuta despues de haber intentado connectse al servidor y devuelve un bool dependiendo de si se conecto o no
+     * This method try to connect to the server for a limmited time <see cref="connexionLimitTime"/>
+     * <paramref name="callback"/> Gets executed after connecting to the server or after connextion limit is done
      * </summary>
      * 
      */

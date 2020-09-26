@@ -1,14 +1,13 @@
 import { IPlayer } from "../Server";
 
-//Lo que usaremos para saber que type de habitacion es
-interface HabConfig {
+//We're going to use it to know which room type
+interface RoomConfig {
   mode: "1VS1" | "2VS2";
 }
 
 /**
- * Este metodo devuelve verdadero si el type de habitacion esta configurado para ser 1VS1
- * @param players type: { player1: IPlayer; player2: IPlayer } | Map<String, IPlayer>... Que type de
- * configuracion o cantidad de players es.
+ * This method returns true if the players type is for OneVsOne rooms
+ * @param players type: { player1: IPlayer; player2: IPlayer } | Map<String, IPlayer>
  */
 function isOneVsOne(
   players: { player1: IPlayer; player2: IPlayer } | Map<String, IPlayer>
@@ -17,23 +16,23 @@ function isOneVsOne(
 }
 
 /**
- * Esta clase es la clase padre de donde heredaran todas las diferentes habitaciones o modes de juegos
- */
+ * This is kind of the abstract class from which all the rooms are going to inherit from.
+ */ 
 class Habitacion {
-  private config: HabConfig;
+  private config: RoomConfig;
   private player1: IPlayer | null = null;
   private player2: IPlayer | null = null;
   private players: Map<String, IPlayer> | null = null;
 
   /**
    * mode 1VS1
-   * @param type { player1: IPlayer; player2: IPlayer }: Jugador 1 y 2 para esta habitacion
+   * @param type { player1: IPlayer; player2: IPlayer }: Player 1 and 2 for this room.
    */
   constructor(type: { player1: IPlayer; player2: IPlayer });
 
   /**
-   * mode 2VS2 o mas
-   * @param type  Map<String, IPlayer>: Lista de players que estaran en esta habitacion
+   * mode 2VS2 or more
+   * @param type  Map<String, IPlayer>: Player list for this room.
    */
   constructor(type: Map<String, IPlayer>);
 
@@ -57,7 +56,7 @@ class Habitacion {
 }
 
 /**
- * Esta clase sera la encargada de comunicar los players en el metodo 1VS1
+ * This will be the class for working with one vs one rooms
  */
 export class OneVsOne extends Habitacion {
   constructor(player1: IPlayer, player2: IPlayer) {
