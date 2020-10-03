@@ -6,9 +6,9 @@ var Timer = /** @class */ (function () {
         if (interval !== undefined)
             this.interval = interval;
         if (execute !== undefined)
-            this.empezar(execute);
+            this.start(execute);
     }
-    Timer.prototype.empezar = function (execute) {
+    Timer.prototype.start = function (execute) {
         this.si = setInterval(function () {
             execute();
         }, 1000 / this.interval);

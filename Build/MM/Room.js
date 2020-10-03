@@ -15,15 +15,14 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.OneVsOne = void 0;
 /**
- * Este metodo devuelve verdadero si el type de habitacion esta configurado para ser 1VS1
- * @param players type: { player1: IPlayer; player2: IPlayer } | Map<String, IPlayer>... Que type de
- * configuracion o cantidad de players es.
+ * This method returns true if the players type is for OneVsOne rooms
+ * @param players type: { player1: IPlayer; player2: IPlayer } | Map<String, IPlayer>
  */
 function isOneVsOne(players) {
     return players == undefined;
 }
 /**
- * Esta clase es la clase padre de donde heredaran todas las diferentes habitaciones o modes de juegos
+ * This is kind of the abstract class from which all the rooms are going to inherit from.
  */
 var Habitacion = /** @class */ (function () {
     function Habitacion(type) {
@@ -43,7 +42,7 @@ var Habitacion = /** @class */ (function () {
     return Habitacion;
 }());
 /**
- * Esta clase sera la encargada de comunicar los players en el metodo 1VS1
+ * This will be the class for working with one vs one rooms
  */
 var OneVsOne = /** @class */ (function (_super) {
     __extends(OneVsOne, _super);

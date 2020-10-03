@@ -5,7 +5,7 @@
 import * as net from "net";
 import Timer from "./Utils/Timer";
 import uuid from "uuid";
-import {OneVsOne} from "./MM/Room"
+import { OneVsOne } from "./MM/Room";
 
 let timer: Timer = new Timer();
 
@@ -30,7 +30,7 @@ let oneVsOneRooms: Map<string, OneVsOne> = new Map<string, OneVsOne>();
  * @param socket client refference
  */
 let server = net.createServer((socket) => {
-  let id = uuid()
+  let id = uuid();
   let connected = false;
 
   //Send a "connected" message after one second to the client
@@ -63,6 +63,7 @@ const PORT = 8080; //Port in which the server is listening.
 
 //Make the server listen on the selected port
 server.listen(PORT, () => {
+  debugger;
   console.log("RUNNING ON PORT: " + PORT);
   console.log("Waiting for players to search a match");
 

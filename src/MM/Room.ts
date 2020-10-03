@@ -17,8 +17,8 @@ function isOneVsOne(
 
 /**
  * This is kind of the abstract class from which all the rooms are going to inherit from.
- */ 
-class Habitacion {
+ */
+class Room {
   private config: RoomConfig;
   private player1: IPlayer | null = null;
   private player2: IPlayer | null = null;
@@ -58,7 +58,7 @@ class Habitacion {
 /**
  * This will be the class for working with one vs one rooms
  */
-export class OneVsOne extends Habitacion {
+export class OneVsOne extends Room {
   constructor(player1: IPlayer, player2: IPlayer) {
     super({ player1: player1, player2: player2 });
   }
