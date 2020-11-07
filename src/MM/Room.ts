@@ -1,8 +1,10 @@
-import { IPlayer } from "../Server";
+import uuid from 'uuid';
+import { IPlayer } from '../Server';
 
 //We're going to use it to know which room type
 interface RoomConfig {
-  mode: "1VS1" | "2VS2";
+  id: string;
+  mode: '1VS1' | '2VS2';
 }
 
 /**
@@ -12,7 +14,9 @@ interface RoomConfig {
 function isOneVsOne(
   players: { player1: IPlayer; player2: IPlayer } | Map<String, IPlayer>
 ): players is { player1: IPlayer; player2: IPlayer } {
-  return <Map<String, IPlayer>>players == undefined;
+  return (
+    (players as { player1: IPlayer; player2: IPlayer }).player1 !== undefined
+  );
 }
 
 /**
@@ -44,13 +48,19 @@ class Room {
         }
       | Map<String, IPlayer>
   ) {
+    this.config = {
+      id: uuid(),
+      mode: '1VS1',
+    };
     if (isOneVsOne(type)) {
-      this.config = { mode: "1VS1" };
+      this.config.mode = '1VS1';
       this.player1 = type.player1;
       this.player2 = type.player2;
+      console.log('HAB 1VS1 CREATED');
     } else {
-      this.config = { mode: "2VS2" };
+      this.config.mode = '2VS2';
       this.players = type;
+      console.log('HAB 2VS2 CREATED');
     }
   }
 }
@@ -61,5 +71,11 @@ class Room {
 export class OneVsOne extends Room {
   constructor(player1: IPlayer, player2: IPlayer) {
     super({ player1: player1, player2: player2 });
+  }
+}
+
+export class TwoVsTwo extends Room {
+  constructor(players: Map<String, IPlayer>) {
+    super(players);
   }
 }
