@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "tsc": "tsc",
+    "tsc": "tsc -v",
     "dev": "ts-node-dev --respawn --transpileOnly ./src/Server.ts",
     "start": "npm run tsc && node ./build/Server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
