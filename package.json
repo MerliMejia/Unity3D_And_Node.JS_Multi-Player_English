@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "tsc": "tsc -v",
+    "tsc": "tsc",
     "dev": "ts-node-dev --respawn --transpileOnly ./src/Server.ts",
-    "start": "npm run tsc && node ./build/Server.js",
+    "start": "node ./build/Server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
