@@ -34,7 +34,7 @@ var timer = new Timer_1.default();
 var searchMatch = new Map();
 //Object with all commands(I'll change it for a enum later)
 var commands = {
-    SEARCH_MATCH: 'SEARCH_MATCH',
+    SEARCH_MATCH: 'SEARCH_MATCH'
 };
 //List of all One Vs One rooms
 var oneVsOneRooms = new Map();
@@ -67,6 +67,7 @@ var server = net.createServer(function (socket) {
     //The client has desconnected
     socket.on('close', function () {
         console.log('DESCONNECTED');
+        searchMatch.delete(id);
     });
 });
 var PORT = 8080; //Port in which the server is listening.

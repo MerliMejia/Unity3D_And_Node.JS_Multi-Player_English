@@ -19,7 +19,7 @@ export interface IPlayer {
 let searchMatch: Map<String, IPlayer> = new Map<String, IPlayer>();
 //Object with all commands(I'll change it for a enum later)
 let commands = {
-  SEARCH_MATCH: 'SEARCH_MATCH',
+  SEARCH_MATCH: 'SEARCH_MATCH'
 };
 
 //List of all One Vs One rooms
@@ -57,6 +57,7 @@ let server = net.createServer((socket) => {
   //The client has desconnected
   socket.on('close', () => {
     console.log('DESCONNECTED');
+    searchMatch.delete(id);
   });
 });
 

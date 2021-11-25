@@ -16,7 +16,7 @@ public class Networking : MonoBehaviour
     TcpClient client = new TcpClient();//TCP client instance
     NetworkStream stream;//We use it for writing and reading from the server.
 
-    const string IP = "192.168.0.6";//Server IP
+    const string IP = "192.168.0.5";//Server IP
     const int PORT = 8080;//Server listening port
     const double memory = 5e+6;//this means 5mb in bytes
     const int connexionLimitTime = 5000;//Connexion limit time in milliseconds
